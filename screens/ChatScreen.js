@@ -13,7 +13,7 @@ import {
 } from 'react-native'
 import { observer, inject } from "mobx-react/native"
 
-@inject("ChatStore")
+@inject("ChatStore", "UserStore")
 @observer
 export default class ChatScreen extends Component {
   static navigationOptions = {
@@ -35,12 +35,32 @@ export default class ChatScreen extends Component {
     )
   }
 
+  addZero = (i) => {
+      if (i < 10) {
+          i = "0" + i;
+      }
+      return i;
+  }
+
+  convertDate = () => {
+      var d = new Date();
+      var h = this.addZero(d.getHours());
+      var m = this.addZero(d.getMinutes());
+      var s = this.addZero(d.getSeconds());
+      return h + ":" + m + ":" + s;
+  }
+
+
+
+  messageSendHandler = () => {
+    this.props.ChatStore.addMessage(this.state.message)
+    this.setState({
+      message: ''
+    })
+  }
+
   render() {
     const { messages } = this.props.ChatStore
-
-    messageSendHandler = () => {
-      this.props.ChatStore.addMessage(this.state.message)
-    }
 
     return (
       <View style={styles.container}>
@@ -52,11 +72,11 @@ export default class ChatScreen extends Component {
           renderItem={(message) => {
             console.log(item)
             const item = message.item
-            let inMessage = item.type === 'in'
+            let inMessage = item.username === this.props.UserStore.user.name
             let itemStyle = inMessage ? styles.itemIn : styles.itemOut
             return (
               <View style={[styles.item, itemStyle]}>
-                {!inMessage && this.renderDate(item.date)}
+                {!inMessage && this.renderDate(this.convertDate(item.date))}
                 <View style={[styles.balloon]}>
                   <Text>{item.message}</Text>
                 </View>
@@ -72,8 +92,8 @@ export default class ChatScreen extends Component {
                 onChangeText={(message) => this.setState({message})}/>
           </View>
 
-            <TouchableOpacity style={styles.btnSend}>
-              <Image source={{uri:"https://png.icons8.com/small/75/ffffff/filled-sent.png"}} style={styles.iconSend} onPress={this.messageSendHandler}  />
+            <TouchableOpacity style={styles.btnSend} onPress={this.messageSendHandler}>
+              <Image source={{uri:"https://png.icons8.com/small/75/ffffff/filled-sent.png"}} style={styles.iconSend}/>
             </TouchableOpacity>
         </View>
       </View>
@@ -131,6 +151,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   itemIn: {
+    backgroundColor: '#687fff',
+    color:'#FFF',
     alignSelf: 'flex-start'
   },
   itemOut: {

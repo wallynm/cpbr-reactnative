@@ -30,7 +30,7 @@ export default class ProfileScreen extends Component {
           <View style={styles.body}>
             <View style={styles.bodyContent}>
               <Text style={styles.name}>{this.props.UserStore.user.name}</Text>
-              <Text style={styles.info}>UX Designer / Mobile developer</Text>
+              <Text style={styles.info}>{this.props.UserStore.user.role} / {this.props.UserStore.user.city}</Text>
               <Text style={styles.description}>Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram expetendis, omittam deseruisse consequuntur ius an,</Text>
               
               <TouchableOpacity style={styles.buttonContainer} onPress={this.logoutHandler}>
@@ -43,10 +43,18 @@ export default class ProfileScreen extends Component {
   }
 }
 
+const text = {
+  margin: 20,
+  fontSize: 20,
+  fontWeight: 'bold',
+  textAlign: 'center',
+  color: '#34495e',
+}
+
 const styles = StyleSheet.create({
   header:{
     backgroundColor: "#00BFFF",
-    height:200,
+    height:100,
   },
   avatar: {
     width: 130,
@@ -57,32 +65,28 @@ const styles = StyleSheet.create({
     marginBottom:10,
     alignSelf:'center',
     position: 'absolute',
-    marginTop:130
-  },
-  name:{
-    fontSize:22,
-    color:"#FFFFFF",
-    fontWeight:'600',
+    marginTop:50
   },
   body:{
     marginTop:40,
   },
   bodyContent: {
-    flex: 1,
     alignItems: 'center',
     padding:30,
   },
   name:{
+    ...text,
     fontSize:28,
     color: "#696969",
     fontWeight: "600"
   },
   info:{
+    ...text,
     fontSize:16,
-    color: "#00BFFF",
-    marginTop:10
+    color: "#00BFFF"
   },
   description:{
+    ...text,
     fontSize:16,
     color: "#696969",
     marginTop:10,

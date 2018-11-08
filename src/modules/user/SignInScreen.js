@@ -22,7 +22,9 @@ export default class SignInScreen extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      user: ''
+      user: '',
+      role: 'Desenvolvedor',
+      city: 'BH',
     }
   }
   static navigationOptions = {
@@ -39,6 +41,19 @@ export default class SignInScreen extends Component {
           placeholder="Username"
           onChangeText={(user) => this.setState({user})}
         />
+
+        <TextInput
+          style={{height: 40}}
+          placeholder="Cargo"
+          onChangeText={(role) => this.setState({role})}
+        />
+
+        <TextInput
+        style={{height: 40}}
+        placeholder="Cidade"
+        onChangeText={(city) => this.setState({city})}
+      />
+
         <Button style={styles.buttonContainer} title="Sign in!" onPress={this._signInAsync} />
       </View>
     )
@@ -47,6 +62,8 @@ export default class SignInScreen extends Component {
   _signInAsync = () => {
     this.props.UserStore.setUserData('token', 'abc')
     this.props.UserStore.setUserData('name', this.state.user)
+    this.props.UserStore.setUserData('role', this.state.role)
+    this.props.UserStore.setUserData('city', this.state.city)
     if(this.state.user === '') {
       return Alert.alert("Preencha um usuário")    
     }
@@ -60,7 +77,8 @@ const styles = StyleSheet.create({
     margin: 50
   },
   header: {
-    fontSize: 30
+    fontSize: 30,
+    marginBottom: 30
   },
   buttonContainer: {
     marginTop:10,
