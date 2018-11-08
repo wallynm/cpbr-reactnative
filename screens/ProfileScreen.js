@@ -7,9 +7,19 @@ import {
   TouchableOpacity
 } from 'react-native'
 
+
+import { observer, inject } from "mobx-react/native"
+@inject("UserStore")
+@observer
 export default class ProfileScreen extends Component {
   static navigationOptions = {
     header: null,
+  }
+
+  logoutHandler = () => {
+    console.log(this.props)
+    this.props.UserStore.logout()
+    this.props.navigation.navigate('Auth')
   }
   
   render() {
@@ -19,15 +29,12 @@ export default class ProfileScreen extends Component {
           <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
           <View style={styles.body}>
             <View style={styles.bodyContent}>
-              <Text style={styles.name}>John Doe</Text>
+              <Text style={styles.name}>{this.props.UserStore.user.name}</Text>
               <Text style={styles.info}>UX Designer / Mobile developer</Text>
               <Text style={styles.description}>Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram expetendis, omittam deseruisse consequuntur ius an,</Text>
               
-              <TouchableOpacity style={styles.buttonContainer}>
-                <Text>Opcion 1</Text>  
-              </TouchableOpacity>              
-              <TouchableOpacity style={styles.buttonContainer}>
-                <Text>Opcion 2</Text> 
+              <TouchableOpacity style={styles.buttonContainer} onPress={this.logoutHandler}>
+                <Text>Logout</Text>  
               </TouchableOpacity>
             </View>
         </View>

@@ -24,12 +24,7 @@ export default class App extends Component {
         />
       );
     } else {
-
-      // const menu = <Menu navigator={navigator}/>;
-
-      // return (
-      //     <ContentView/>
-      // );
+      console.info(stores)
 
       return (
         <Provider {...stores}>

@@ -20,6 +20,13 @@ export default class ChatScreen extends Component {
     header: null,
   }
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      message: ''
+    }
+  }
+
   renderDate = (date) => {
     return(
       <Text style={styles.time}>
@@ -30,6 +37,10 @@ export default class ChatScreen extends Component {
 
   render() {
     const { messages } = this.props.ChatStore
+
+    messageSendHandler = () => {
+      this.props.ChatStore.addMessage(this.state.message)
+    }
 
     return (
       <View style={styles.container}>
@@ -58,11 +69,11 @@ export default class ChatScreen extends Component {
             <TextInput style={styles.inputs}
                 placeholder="Write a message..."
                 underlineColorAndroid='transparent'
-                onChangeText={(name_address) => this.setState({name_address})}/>
+                onChangeText={(message) => this.setState({message})}/>
           </View>
 
             <TouchableOpacity style={styles.btnSend}>
-              <Image source={{uri:"https://png.icons8.com/small/75/ffffff/filled-sent.png"}} style={styles.iconSend}  />
+              <Image source={{uri:"https://png.icons8.com/small/75/ffffff/filled-sent.png"}} style={styles.iconSend} onPress={this.messageSendHandler}  />
             </TouchableOpacity>
         </View>
       </View>
