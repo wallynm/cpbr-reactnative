@@ -12,8 +12,6 @@
 
 6. $ yarn add mobx mobx-react
 
-```
-
 7. Iniciar projet
    $ yarn start
 
