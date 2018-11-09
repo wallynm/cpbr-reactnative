@@ -1,19 +1,19 @@
 --- WORKSHOP ---
 1. Criar pasta
 
-2. $ npm install -g create-react-native-app expo-cli
+2. $ `npm install -g create-react-native-app expo-cli`
 
 3. Explicar o que é o Expo & expo-cli
 
-4. $ create-react-native-app cpbr-reactnative
+4. $ `create-react-native-app cpbr-reactnative`
 
 5. Install UI
-  $ yarn add react-native-elements
+  $ `yarn add react-native-elements`
 
-6. $ yarn add mobx mobx-react
+6. $ `yarn add mobx mobx-react`
 
 7. Iniciar projet
-   $ yarn start
+   $ `yarn start`
 
 
 8. Definição do APP e escopos:
